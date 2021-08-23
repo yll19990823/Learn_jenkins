@@ -1,0 +1,56 @@
+pipeline {
+  options {
+    timestamps()
+  }
+  parameters {
+    booleanParam(name: 'data_download', defaultValue: false, description: '是否重新下载指标对齐所有数据')
+    string(name: 'site_id', defaultValue: 'k11_guangzhou_artfull', description: '', trim: true)
+  }
+  environment {
+    PYTHONUNBUFFERED = "1"
+    PYTHONIOENCODING = 'utf-8'
+    PYTHONPATH = '.'
+    CHAT_GROUP_TOKEN = 'fe5bb62a-8f5e-4411-9d56-06a9251cfc4a'
+  }
+  stages {
+    stage('start') {
+      steps {
+        script {
+            print("我的世界")
+        }
+      }
+      post {
+        always {
+          script {
+                print("》》》》》》》》》》》》》》》》》》》》")
+          }
+        }
+      }
+    }
+    stage('test') {
+      parallel {
+        stage('one job'){
+          steps {
+            script{
+                print(">dfasfdfsdafsa>>>>")
+            }
+          }
+        }
+        stage('two job'){
+          steps{
+            script{
+                print("*dfafsafsafa****")
+            }
+          }
+        }
+      }
+    }
+  }
+  post {
+    always {
+      script {
+         sh "python3 src/feishu.py --result SUCCESS --date 2021-08-18/10:22:90  --details 啊哈哈 --link 定时发撒"
+      }
+    }
+  }
+}
